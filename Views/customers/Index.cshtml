@@ -1,0 +1,39 @@
+﻿@model IEnumerable<PTUDTMDT.Models.customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh sách người dùng</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tên</th>
+            <th>Họ</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@item.first_name</td>
+                <td>@item.last_name</td>
+                <td>@item.phone_number</td>
+                <td>@item.address</td>
+                <td>@item.email</td>
+                <td>
+                    <a href="@Url.Action("Edit","customers",new {id = item.customer_id})" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                    <a href="@Url.Action("Delete","customers",new {id = item.customer_id})" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+
+        </tbody>
+    }
+</table>

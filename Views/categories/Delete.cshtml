@@ -1,0 +1,23 @@
+﻿@model PTUDTMDT.Models.category
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="p-4">
+    <h2>Xóa</h2>
+
+    <h3>Bạn có chác muốn xóa danh mục <strong>@Model.name</strong> không ?</h3>
+    <div>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+            </div>
+        }
+    </div>
+    </div>
