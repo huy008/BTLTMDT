@@ -1,0 +1,33 @@
+﻿@model IEnumerable<PTUDTMDT.Models.order_>
+@{
+    ViewBag.Title = "ShowOrder";
+    List<PTUDTMDT.Models.order_> orders = ViewBag.order;
+}
+
+<h2>Hiển thi đơn hàng</h2>
+
+<div class="col-lg-8 table-responsive mb-5">
+    <table class="table table-bordered text-center mb-0">
+        <thead class="bg-secondary text-dark">
+            <tr>
+                <th>ID</th>
+                <th>Trạng thái giao hàng</th>
+                <th>Thời gian</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody class="align-middle">
+            @foreach (var item in orders)
+            {
+
+            <tr>
+                <td class="align-middle">Đơn hàng số : #@item.shipment.shipment_id</td>
+                <td class="align-middle">@(item.shipment.status.Equals("1") ? "Đang xử lý" : "Đã giao")</td>
+                <td class="align-middle">@item.order_date</td>
+                <td class="align-middle">$@item.order_price</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -1,39 +1,63 @@
-﻿@model IEnumerable<PTUDTMDT.Models.product>
-
+﻿@using PagedList.Mvc
+@using PagedList
+@model IPagedList<PTUDTMDT.Models.product>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Danh sách sản phẩm</h2>
+<div class="row">
+    <div class="col-lg-12">
+        @using (Html.BeginForm())
+        {
+            <label>Tìm kiếm theo tên</label>
+            @Html.TextBox("name")
+            <input type="submit" value="Tìm" />
+        }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Ảnh</th>
-            <th>Tên</th>
-            <th>Mô tả</th>
-            <th>Giá</th>
-            <th>Stock</th>
-            <th></th>
-        </tr>
-    </thead>
-        @foreach (var product in Model) { 
-<tbody>
-    <tr>
-        <td><img alt="image" style="width:60px;" src="~/Content/frontend/img/@product.product_image" /></td>
-        <td>@product.SKU</td>
-        <td>@product.description</td>
-        <td>@product.price</td>
-        <td>@product.stock</td>
-        <td>
-            <a href="@Url.Action("Edit","products",new {id = product.product_id})" class="btn btn-success"><i class="fa fa-edit"></i></a>
-            <a href="@Url.Action("Delete","products",new {id = product.product_id})" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-        </td>
-    </tr>
+        @using (Html.BeginForm())
+        {
+            <label>Tìm kiếm theo giá</label>
+            @Html.TextBox("gia")
+            <input type="submit" value="Tìm" />
+        }
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h3>Danh sách sản phẩm</h3>
+            </div>
+            <div class="ibox-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Tên</th>
+                            <th>Mô tả</th>
+                            <th>Giá</th>
+                            <th>Stock</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    @foreach (var product in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td><img alt="image" style="width:60px;" src="~/Content/frontend/img/@product.product_image" /></td>
+                                <td>@product.SKU</td>
+                                <td>@product.description</td>
+                                <td>@product.price</td>
+                                <td>@product.stock</td>
+                                <td>
+                                    <a href="@Url.Action("Edit","products",new {id = product.product_id})" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                    <a href="@Url.Action("Delete","products",new {id = product.product_id})" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
 
-</tbody>
-    }
-    </table>
+                        </tbody>
+                    }
+                </table>
 
-
+            </div>
+        </div>
+    </div>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("DanhSach", new { page, pageSize = 8 }))

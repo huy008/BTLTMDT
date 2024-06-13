@@ -81,3 +81,7 @@ C:\Users\quang\source\repos\PTUDTMDT\PTUDTMDT\obj\Debug\PTUDTMDT.csproj.CoreComp
 C:\Users\quang\source\repos\PTUDTMDT\PTUDTMDT\obj\Debug\PTUDTMDT.csproj.CopyComplete
 C:\Users\quang\source\repos\PTUDTMDT\PTUDTMDT\obj\Debug\PTUDTMDT.dll
 C:\Users\quang\source\repos\PTUDTMDT\PTUDTMDT\obj\Debug\PTUDTMDT.pdb
+C:\Users\quang\source\repos\PTUDTMDT\PTUDTMDT\bin\PagedList.dll
+C:\Users\quang\source\repos\PTUDTMDT\PTUDTMDT\bin\PagedList.Mvc.dll
+C:\Users\quang\source\repos\PTUDTMDT\PTUDTMDT\bin\PagedList.xml
+C:\Users\quang\source\repos\PTUDTMDT\PTUDTMDT\bin\PagedList.Mvc.xml

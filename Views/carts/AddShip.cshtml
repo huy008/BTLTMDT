@@ -6,8 +6,7 @@
 
 
 
-@using (Html.BeginForm())
-{
+<form action="AddShip" method="post">
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
             <div class="col-lg-8">
@@ -28,35 +27,36 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Ngày giao</label>
-                            <input class="form-control" id="shipment_date" type="date">
+                            <input class="form-control" name="shipment_date" type="date">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Địa chỉ</label>
-                            <input class="form-control" id="address" type="text">
+                            <input class="form-control" name="address" type="text">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Thành phố</label>
-                            <input class="form-control" id="city" type="text">
+                            <input class="form-control" name="city" type="text">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Tình trạng</label>
-                            <select class="custom-select" id="status">
+                            <select class="custom-select" name="status">
                                 <option value="Đang giao" selected>Đang giao</option>
                                 <option value="Giao thành công">Giao thành công</option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Country</label>
-                            <input class="form-control" id="country" type="text">
+                            <input class="form-control" name="country" type="text">
                         </div>
                         <div class="col-md-6 form-group">
                             <label>ZIP Code</label>
-                            <input class="form-control" id="zip_code" type="text">
+                            <input class="form-control" name="zip_code" type="text">
                         </div>
 
                         <div class="col-md-6 form-group">
-                            <input class="form-control" id="customer_id" type="hidden" value="@c.customer_id">
+                            <input class="form-control" name="customer_id" type="hidden" value="@c.customer_id">
                         </div>
+                        <input name="orderId" type="hidden" value="@ViewBag.orderId">
                     </div>
                 </div>
             </div>
@@ -68,4 +68,4 @@
             <input type="submit" value="Create" class="btn btn-default" />
         </div>
     </div>
-}
+</form>

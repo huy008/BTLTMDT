@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using PTUDTMDT.Models;
 
 namespace PTUDTMDT.Controllers
@@ -15,24 +16,76 @@ namespace PTUDTMDT.Controllers
         private DataContext db = new DataContext();
 
         // GET: products
-
-        public ActionResult Index()
+        public ActionResult Index(string name,string gia,int ?page,int? pageSize)
         {
-            var products = db.products;
-            return View(products.ToList());
+            var products = db.products.Select(s=>s);
+            if (!string.IsNullOrEmpty(name))
+            {
+                products=products.Where(p => p.SKU.Contains(name)); 
+            }
+            if (!string.IsNullOrEmpty(gia))
+            {
+                decimal price = 0;
+                if(decimal.TryParse(gia,out price))
+                    products= products.Where(p => p.price > price);
+            }
+            products= products.OrderBy(p=>p.product_id);
+            if (page==null) page=1;
+            if (pageSize==null) pageSize=8;
+            return View(products.ToPagedList((int)page,(int)pageSize));
+        }
+
+        public ActionResult DanhSach(string name, string gia, int? page, int? pageSize)
+        {
+            var products = db.products.Select(s => s);
+            if (!string.IsNullOrEmpty(name))
+            {
+                products=products.Where(p => p.SKU.Contains(name));
+            }
+            if (!string.IsNullOrEmpty(gia))
+            {
+                decimal price = 0;
+                if (decimal.TryParse(gia, out price))
+                    products= products.Where(p => p.price > price);
+            }
+            products= products.OrderBy(p => p.product_id);
+            if (page==null) page=1;
+            if (pageSize==null) pageSize=8;
+            return View(products.ToPagedList((int)page, (int)pageSize));
+        }
+
+        public ActionResult getBestSellingProducts()
+        {
+            var topProducts = (from p in db.products
+                               join oi in db.order_item on p.product_id equals oi.product_id
+                               group new { product = p, quantity = oi.quantity } by p.product_id into productGroup
+                               orderby productGroup.Sum(x => x.quantity) descending
+                               select new
+                               {
+                                   SKU = productGroup.FirstOrDefault().product.SKU,
+                                   product_image = productGroup.FirstOrDefault().product.product_image,
+                                   price = productGroup.FirstOrDefault().product.price,
+                               })
+                               .Take(4).ToList();
+
+            var product = topProducts.Select(p => new product
+            {
+                SKU = p.SKU,
+                product_image = p.product_image,
+                price = p.price,
+            }).ToList();
+
+            ViewBag.newProducts =db.products.OrderByDescending(p=>p.product_id).Take(4).ToList(); 
+            return View(product);
         }
 
         public ActionResult getProductsByCat(int id)
         {
-            var products = db.products.Where(s => s.category_id == id);
+            var products = db.products.Where(s => s.category_id == id).OrderBy(p => p.product_id);
             return View(products.ToList());
         }
 
-        public ActionResult DanhSach()
-        {
-            var products = db.products.OrderBy(c => c.product_id);
-            return View(products.ToList());
-        }
+      
 
 
         // GET: products/Details/5
@@ -133,7 +186,7 @@ namespace PTUDTMDT.Controllers
             product product = db.products.Find(id);
             db.products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("DanhSach");
         }
 
         protected override void Dispose(bool disposing)

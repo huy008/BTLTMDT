@@ -5,15 +5,14 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Thêm</h2>
+
 
 <div class="col-lg-6">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-
+    <h2>Thêm Sản phẩm</h2>
         <div class="form-horizontal">
-            <h4>Sản phẩm</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">

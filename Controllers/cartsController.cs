@@ -22,41 +22,90 @@ namespace PTUDTMDT.Controllers
             ViewBag.total = db.carts.Where(c => c.customer_id == customer.customer_id).Sum(c => c.product.price*c.quantity);
             return View(carts);
         }
+        
 
-        public ActionResult AddShip()
+        //public ActionResult AddOrder()
+        //{
+        //    var customer = Session["customer"] as  PTUDTMDT.Models.customer;
+        //    decimal total = (decimal)db.carts.Where(c => c.customer_id == customer.customer_id).Sum(c => c.product.price*c.quantity);
+
+        //    var carts = db.carts
+        //            .Where(c => c.customer_id == customer.customer_id)
+        //            .Select(c => new // Create new order_item objects
+        //            {
+        //                quantity = c.quantity,
+        //                price = (decimal)(c.product.price * c.quantity),
+        //                product_id = c.product.product_id
+        //            }).ToList();
+
+        //    db.order_.Add(new order_
+        //    {
+        //        order_date = DateTime.Now,
+        //        order_price = total,
+        //        customer_id = customer.customer_id,
+        //        order_item = carts.Select(c => new order_item
+        //        {
+        //            quantity = c.quantity,
+        //            price=c.price,
+        //            product_id=c.product_id
+        //        }).ToList()
+        //    }) ; 
+        //    db.SaveChanges();
+        //    return RedirectToAction("AddShipment");
+        //}
+
+        public ActionResult ShowOrder()
         {
-            ViewBag.customer = Session["customer"] as  PTUDTMDT.Models.customer;
+            var customer = Session["customer"] as  PTUDTMDT.Models.customer;
+            var order = db.order_.Where(c => c.customer_id == customer.customer_id).ToList();
+            ViewBag.order=order;
             return View();
         }
 
+
+        public ActionResult AddShipment()
+        {
+            return View();
+        }
 
         [HttpPost]
-        public ActionResult AddShip([Bind(Include = "shipment_date,address,city,status,country,zip_code,customer_id")] shipment shipment)
+        [ValidateAntiForgeryToken]
+        public ActionResult AddShipment([Bind(Include = "shipment_date,address,city,status,country,zip_code,customer_id")] shipment shipment)
         {
-            var customer = Session["customer"] as  PTUDTMDT.Models.customer;
+            if (ModelState.IsValid)
+            {
                 db.shipments.Add(shipment);
                 db.SaveChanges();
-            var order = db.order_.Where(c => c.customer_id == customer.customer_id).FirstOrDefault();
-            var carts = db.carts.Where(c => c.customer_id == customer.customer_id).ToList();
-            foreach (var cart in carts)
-            {
-                db.order_item.Add(new order_item(cart.quantity, cart.product.price, cart.product.product_id, order.order_id));
-                db.SaveChanges();
             }
-            return View();
-        }
-
-        public ActionResult AddOrder()
-        {
-
             var customer = Session["customer"] as  PTUDTMDT.Models.customer;
-            var total = db.carts.Where(c => c.customer_id == customer.customer_id).Sum(c => c.product.price*c.quantity);
-            db.order_.Add(new order_(DateTime.Now, total, customer.customer_id));
-            db.SaveChanges();
-           
-            return RedirectToAction("AddShip");
-        }
+            decimal total = (decimal)db.carts.Where(c => c.customer_id == customer.customer_id).Sum(c => c.product.price*c.quantity);
 
+            var carts = db.carts
+                    .Where(c => c.customer_id == customer.customer_id)
+                    .Select(c => new // Create new order_item objects
+                    {
+                        quantity = c.quantity,
+                        price = (decimal)(c.product.price * c.quantity),
+                        product_id = c.product.product_id
+                    }).ToList();
+
+            db.order_.Add(new order_
+            {
+                order_date = DateTime.Now,
+                order_price = total,
+                customer_id = customer.customer_id,
+                shipment = shipment,
+                order_item = carts.Select(c => new order_item
+                {
+                    quantity = c.quantity,
+                    price=c.price,
+                    product_id=c.product_id
+                }).ToList()
+            });
+            db.SaveChanges();
+            TempData["toast"] = "Đặt hàng thành công";
+            return RedirectToAction("Index","products");
+        }
         // GET: carts/Details/5
         public ActionResult Details(int? id)
         {

@@ -1,0 +1,238 @@
+﻿@model IEnumerable<PTUDTMDT.Models.shipment>
+
+@{
+    ViewBag.Title = "ThongKe";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<PTUDTMDT.Models.product> top3Products = ViewBag.topProductsTop3;
+    List<PTUDTMDT.Models.product> Not3Selling = ViewBag.NotSellingTop3;
+    List<PTUDTMDT.Models.product> top5Products = ViewBag.topProductsTop5;
+    List<PTUDTMDT.Models.product> Not5Selling = ViewBag.NotSellingTop5;
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-info pull-right">Day</span>
+                <h5>Ngày @ViewBag.daY</h5>
+            </div>
+            <div class="ibox-content">
+                <h2 class="no-margins">Doanh thu - @ViewBag.daYTotalRevenue</h2>
+                <div class="stat-percent font-bold text-info"><i class="fa fa-level-up"></i></div>
+                <h3>Số đơn hàng - @ViewBag.daYOrderCount</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-info pull-right">Month</span>
+                <h5>Tháng @ViewBag.monTH</h5>
+            </div>
+            <div class="ibox-content">
+                <h2 class="no-margins">Doanh thu - @ViewBag.monTHTotalRevenue</h2>
+                <div class="stat-percent font-bold text-info"><i class="fa fa-level-up"></i></div>
+                <h3>Số đơn hàng - @ViewBag.monTHOrderCount</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <span class="label label-info pull-right">Year</span>
+                <h5>Năm @ViewBag.yeaR</h5>
+            </div>
+            <div class="ibox-content">
+                <h2 class="no-margins">Doanh thu - @ViewBag.yeaRTotalRevenue</h2>
+                <div class="stat-percent font-bold text-info"><i class="fa fa-level-up"></i></div>
+                <h3>Số đơn hàng - @ViewBag.yeaROrderCount</h3>
+            </div>
+        </div>
+    </div>
+</div>
+        
+
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Thay đổi trạng thái đơn hàng</h5>
+            </div>
+            <div class="ibox-content">
+                <ul class="todo-list m-t small-list">
+                    <li>
+                        @foreach (var item in Model)
+                        {
+
+                            <div style="display:flex;margin-top:10px;">
+                                <h4>Đơn hàng số : #@item.shipment_id</h4>
+                                <select name="status" class="status form-control" data-id="@item.shipment_id">
+                                    <option value="1" @(item.status.Equals("1") ? "selected" : "")>Đang xử lý</option>
+                                    <option value="2" @(item.status.Equals("2") ? "selected" : "")>Đã giao</option>
+                                </select>
+                            
+                            </div>
+
+                        }
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h3>Top 3 sản phẩm bán chay </h3>
+            </div>
+            <div class="ibox-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Tên</th>
+                            <th>Giá</th>
+
+                        </tr>
+                    </thead>
+                    @foreach (var product in top3Products)
+                    {
+                        <tbody>
+                            <tr>
+                                <td><img alt="image" style="width:60px;" src="~/Content/frontend/img/@product.product_image" /></td>
+                                <td>@product.SKU</td>
+                                <td>@product.price</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h3>Top 5 sản phẩm bán chay </h3>
+            </div>
+            <div class="ibox-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Tên</th>
+                            <th>Giá</th>
+
+                        </tr>
+                    </thead>
+                    @foreach (var product in top5Products)
+                    {
+                        <tbody>
+                            <tr>
+                                <td><img alt="image" style="width:60px;" src="~/Content/frontend/img/@product.product_image" /></td>
+                                <td>@product.SKU</td>
+                                <td>@product.price</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h3>Top 3 sản phẩm không bán được </h3>
+            </div>
+            <div class="ibox-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Tên</th>
+                            <th>Giá</th>
+                        </tr>
+                    </thead>
+                    @foreach (var product in Not3Selling)
+                    {
+                        <tbody>
+                            <tr>
+                                <td><img alt="image" style="width:60px;" src="~/Content/frontend/img/@product.product_image" /></td>
+                                <td>@product.SKU</td>
+                                <td>@product.price</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h3>Top 5 sản phẩm không bán được </h3>
+            </div>
+            <div class="ibox-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Tên</th>
+                            <th>Giá</th>
+                        </tr>
+                    </thead>
+                    @foreach (var product in Not5Selling)
+                    {
+                        <tbody>
+                            <tr>
+                                <td><img alt="image" style="width:60px;" src="~/Content/frontend/img/@product.product_image" /></td>
+                                <td>@product.SKU</td>
+                                <td>@product.price</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).on("change", ".status", function (e) {
+        let _this = $(this);
+        let value = _this.val();
+        let id = _this.attr("data-id");
+        let option = {
+            value: value,
+            id: id,
+        };
+        $.ajax({
+            url: "@Url.Action("updateStatus", "Admin")",
+            type: "POST",
+            data: JSON.stringify(option),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (res) {
+                location.reload();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR, textStatus, errorThrown);
+            },
+        });
+        e.preventDefault();
+    });
+</script>

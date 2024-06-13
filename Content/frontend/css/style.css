@@ -163,7 +163,7 @@ a:hover {
 }
 
 a:not([href]):not([class]) {
-  color: inherit;
+    color:black;
   text-decoration: none;
 }
 
@@ -4570,7 +4570,8 @@ input[type="button"].btn-block {
   color: #6c757d;
 }
 
-.pagination {
+
+    .pagination {
   display: flex;
   padding-left: 0;
   list-style: none;
@@ -4632,16 +4633,17 @@ input[type="button"].btn-block {
   line-height: 1.5;
 }
 
+
 .badge {
-  display: inline-block;
-  padding: 0.25em 0.4em;
-  font-size: 75%;
-  font-weight: 700;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -9582,3 +9584,5 @@ a.text-dark:hover, a.text-dark:focus {
     transform: translateY(-15px);
   }
 }
+
+
