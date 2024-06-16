@@ -1,4 +1,4 @@
-namespace PTUDTMDT.Models
+﻿namespace PTUDTMDT.Models
 {
     using System;
     using System.Collections.Generic;
@@ -21,16 +21,14 @@ namespace PTUDTMDT.Models
 
         [Key]
         public int customer_id { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập trường này")]
         [StringLength(100)]
         public string first_name { get; set; }
-
         [StringLength(100)]
         public string last_name { get; set; }
-
         [StringLength(100)]
         public string email { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập trường này")]
         [StringLength(100)]
         public string password { get; set; }
 

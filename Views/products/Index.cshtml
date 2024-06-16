@@ -6,11 +6,14 @@
 }
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+@if (TempData["toast"] != null)
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script type="text/javascript">
         toastr.success('@TempData["toast"]')
     </script>
+}
 
 @using (Html.BeginForm())
 {
@@ -41,7 +44,7 @@
                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                         <h6 class="text-truncate mb-3">@item.SKU</h6>
                         <div class="d-flex justify-content-center">
-                            <h6>@item.price</h6>
+                            <h6>@item.price đ</h6>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">

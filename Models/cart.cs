@@ -21,16 +21,5 @@ namespace PTUDTMDT.Models
         public virtual customer customer { get; set; }
 
         public virtual product product { get; set; }
-
-        public cart()
-        {
-        }
-
-        public cart( int? quantity, int? product_id, int? customer_id)
-        {
-            this.quantity=quantity;
-            this.customer_id=customer_id;
-            this.product_id=product_id;
-        }
     }
 }

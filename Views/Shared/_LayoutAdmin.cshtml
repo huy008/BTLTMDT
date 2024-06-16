@@ -27,7 +27,8 @@
 <body>
 
 <div id="wrapper">
-
+    @if (customer!=null)
+    {
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
@@ -44,30 +45,29 @@
                 </li>
 
                 <li>
-                    <a href="@Url.Action("ThongKe","Admin")"><i class="fa fa-flask"></i> <span class="nav-label">Thống kê - Báo cáo</span></a>
+                    <a href="@Url.Action("ThongKe", "Admin")"><i class="fa fa-flask"></i> <span class="nav-label">Thống kê - Báo cáo</span></a>
                 </li>
 
                 <li>
                     <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Quản lý danh mục</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="@Url.Action("Index","categories")">Danh sách danh mục</a></li>
-                        <li><a href="@Url.Action("Create","categories")">Thêm danh mục</a></li>
+                        <li><a href="@Url.Action("Index", "categories")">Danh sách danh mục</a></li>
+                        <li><a href="@Url.Action("Create", "categories")">Thêm danh mục</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Quản lý sản phẩm</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="@Url.Action("DanhSach","products")">Danh sách sản phẩm</a></li>
-                        <li><a href="@Url.Action("Create","products")">Thêm sản phẩm</a></li>
+                        <li><a href="@Url.Action("DanhSach", "products")">Danh sách sản phẩm</a></li>
+                        <li><a href="@Url.Action("Create", "products")">Thêm sản phẩm</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <a href="#"><i class="fa fa-shopping-cart"></i> <span class="nav-label">Quản lý khách hàng</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
-                        <li><a href="@Url.Action("Index","customers")">Danh sách khách hàng</a></li>
-                        <li><a href="@Url.Action("Create","customers")">Thêm khách hàng</a></li>
+                        <li><a href="@Url.Action("Index", "customers")">Danh sách khách hàng</a></li>
                     </ul>
                 </li>
 
@@ -75,7 +75,7 @@
 
         </div>
     </nav>
-
+    }
 
 
     <div id="page-wrapper" class="gray-bg">

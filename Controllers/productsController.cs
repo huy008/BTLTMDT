@@ -56,18 +56,31 @@ namespace PTUDTMDT.Controllers
 
         public ActionResult getBestSellingProducts()
         {
-            var topProducts = (from p in db.products
-                               join oi in db.order_item on p.product_id equals oi.product_id
-                               group new { product = p, quantity = oi.quantity } by p.product_id into productGroup
-                               orderby productGroup.Sum(x => x.quantity) descending
-                               select new
-                               {
-                                   SKU = productGroup.FirstOrDefault().product.SKU,
-                                   product_image = productGroup.FirstOrDefault().product.product_image,
-                                   price = productGroup.FirstOrDefault().product.price,
-                               })
-                               .Take(4).ToList();
+            //var topProducts = (from p in db.products
+            //                   join oi in db.order_item on p.product_id equals oi.product_id
+            //                   group new { product = p, quantity = oi.quantity } by p.product_id into productGroup
+            //                   orderby productGroup.Sum(x => x.quantity) descending
+            //                   select new
+            //                   {
+            //                       SKU = productGroup.FirstOrDefault().product.SKU,
+            //                       product_image = productGroup.FirstOrDefault().product.product_image,
+            //                       price = productGroup.FirstOrDefault().product.price,
+            //                   })
+            //                   .Take(4).ToList();
 
+            var topProducts = db.products
+    .Join(db.order_item, p => p.product_id, oi => oi.product_id, (p, oi) => new { product = p, quantity = oi.quantity })
+    .GroupBy(x => x.product.product_id)
+    .OrderByDescending(g => g.Sum(x => x.quantity))
+    .Take(4)
+    .Select(g => new
+    {
+        SKU = g.FirstOrDefault().product.SKU,
+        product_image = g.FirstOrDefault().product.product_image,
+        price = g.FirstOrDefault().product.price
+    })
+    .ToList();
+            
             var product = topProducts.Select(p => new product
             {
                 SKU = p.SKU,
@@ -75,7 +88,7 @@ namespace PTUDTMDT.Controllers
                 price = p.price,
             }).ToList();
 
-            ViewBag.newProducts =db.products.OrderByDescending(p=>p.product_id).Take(4).ToList(); 
+            ViewBag.newProducts =db.products.OrderByDescending(p=>p.created_at).Take(4).ToList(); 
             return View(product);
         }
 
@@ -119,8 +132,18 @@ namespace PTUDTMDT.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "product_id,SKU,description,price,stock,category_id,product_image")] product product)
         {
+            product.created_at = DateTime.Now;
             if (ModelState.IsValid)
             {
+                var f = Request.Files["FileName"];
+
+                if (f!=null&&f.ContentLength>0)
+                {
+                    string tenfile = System.IO.Path.GetFileName(f.FileName);
+                    string path = Server.MapPath("~/Content/frontend/img/"+tenfile);
+                    f.SaveAs(path);
+                    product.product_image = tenfile;    
+                }
                 db.products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("DanhSach");
@@ -155,6 +178,16 @@ namespace PTUDTMDT.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                var f = Request.Files["FileName"];
+
+                if (f!=null&&f.ContentLength>0)
+                {
+                    string tenfile = System.IO.Path.GetFileName(f.FileName);
+                    string duongdan = Server.MapPath("~/Content/frontend/img/"+tenfile);
+                    f.SaveAs(duongdan);
+                    product.product_image = tenfile;
+                }
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("DanhSach");

@@ -24,35 +24,7 @@ namespace PTUDTMDT.Controllers
         }
         
 
-        //public ActionResult AddOrder()
-        //{
-        //    var customer = Session["customer"] as  PTUDTMDT.Models.customer;
-        //    decimal total = (decimal)db.carts.Where(c => c.customer_id == customer.customer_id).Sum(c => c.product.price*c.quantity);
-
-        //    var carts = db.carts
-        //            .Where(c => c.customer_id == customer.customer_id)
-        //            .Select(c => new // Create new order_item objects
-        //            {
-        //                quantity = c.quantity,
-        //                price = (decimal)(c.product.price * c.quantity),
-        //                product_id = c.product.product_id
-        //            }).ToList();
-
-        //    db.order_.Add(new order_
-        //    {
-        //        order_date = DateTime.Now,
-        //        order_price = total,
-        //        customer_id = customer.customer_id,
-        //        order_item = carts.Select(c => new order_item
-        //        {
-        //            quantity = c.quantity,
-        //            price=c.price,
-        //            product_id=c.product_id
-        //        }).ToList()
-        //    }) ; 
-        //    db.SaveChanges();
-        //    return RedirectToAction("AddShipment");
-        //}
+    
 
         public ActionResult ShowOrder()
         {
@@ -75,8 +47,7 @@ namespace PTUDTMDT.Controllers
             if (ModelState.IsValid)
             {
                 db.shipments.Add(shipment);
-                db.SaveChanges();
-            }
+     
             var customer = Session["customer"] as  PTUDTMDT.Models.customer;
             decimal total = (decimal)db.carts.Where(c => c.customer_id == customer.customer_id).Sum(c => c.product.price*c.quantity);
 
@@ -102,9 +73,11 @@ namespace PTUDTMDT.Controllers
                     product_id=c.product_id
                 }).ToList()
             });
-            db.SaveChanges();
-            TempData["toast"] = "Đặt hàng thành công";
-            return RedirectToAction("Index","products");
+                db.SaveChanges();
+                TempData["toast"] = "Đặt hàng thành công";
+                return RedirectToAction("Index", "products");
+            }
+            return View();
         }
         // GET: carts/Details/5
         public ActionResult Details(int? id)
@@ -126,7 +99,12 @@ namespace PTUDTMDT.Controllers
             cart cartItem = db.carts.Where(c => c.product_id == id && c.customer_id == customer_id).FirstOrDefault();
             if(cartItem == null)
             {
-                db.carts.Add(new cart(1, id, customer_id));
+                db.carts.Add(new cart
+                {
+                    quantity = 1,
+                    product_id = id,
+                    customer_id = customer_id
+                }) ;
                 db.SaveChanges();
             }
             else

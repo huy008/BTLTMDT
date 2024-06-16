@@ -8,7 +8,11 @@ namespace PTUDTMDT.Models
 
     public partial class order_
     {
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public order_()
+        {
+            order_item = new HashSet<order_item>();
+        }
 
         public int order_id { get; set; }
 
@@ -30,7 +34,5 @@ namespace PTUDTMDT.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order_item> order_item { get; set; }
-
-      
     }
 }

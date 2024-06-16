@@ -1,4 +1,4 @@
-namespace PTUDTMDT.Models
+﻿namespace PTUDTMDT.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace PTUDTMDT.Models
         [Key]
         public int category_id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bạn phải nhập trường này")]
         [StringLength(100)]
         public string name { get; set; }
 

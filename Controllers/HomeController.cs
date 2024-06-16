@@ -18,9 +18,13 @@ namespace PTUDTMDT.Controllers
         [HttpPost]
         public ActionResult DangKy(customer customer)
         {
-            db.customers.Add(customer);
+            if (ModelState.IsValid)
+            {
+                db.customers.Add(customer);
             db.SaveChanges();
-            return RedirectToAction("DangNhap");
+                return RedirectToAction("DangNhap");
+            }
+            return View();
         }
         public ActionResult DangNhap()
         {

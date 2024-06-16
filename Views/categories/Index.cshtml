@@ -5,33 +5,39 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+<div class="row">
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h3>Danh sách danh mục</h3>
+            </div>
+            <div class="ibox-content">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tên</th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
+                    @foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
 
-<div class="col-lg-4 ml-4">
-    <h2>Danh sách danh mục</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Tên</th>
-                <th></th>
-            </tr>
-        </thead>
+                                <td>@item.name</td>
+                                <td>
+                                    <a href="@Url.Action("Edit","categories",new {id = item.category_id})" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                    <a href="@Url.Action("Delete","categories",new {id = item.category_id})" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
 
-        @foreach (var item in Model)
-        {
-            <tbody>
-                <tr>
+                        </tbody>
+                    }
 
-                    <td >@item.name</td>
-                    <td>
-                        <a href="@Url.Action("Edit","categories",new {id = item.category_id})" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                        <a href="@Url.Action("Delete","categories",new {id = item.category_id})" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                    </td>
-                </tr>
+                </table>
+            </div>
 
-            </tbody>
-        }
-
-    </table>
+        </div>
+    </div>
 </div>
-

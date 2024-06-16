@@ -7,6 +7,7 @@
     List<PTUDTMDT.Models.product> Not3Selling = ViewBag.NotSellingTop3;
     List<PTUDTMDT.Models.product> top5Products = ViewBag.topProductsTop5;
     List<PTUDTMDT.Models.product> Not5Selling = ViewBag.NotSellingTop5;
+
 }
 
 <div class="row">
@@ -17,7 +18,7 @@
                 <h5>Ngày @ViewBag.daY</h5>
             </div>
             <div class="ibox-content">
-                <h2 class="no-margins">Doanh thu - @ViewBag.daYTotalRevenue</h2>
+                <h2 class="no-margins">Doanh thu - @ViewBag.daYTotalRevenue đ</h2>
                 <div class="stat-percent font-bold text-info"><i class="fa fa-level-up"></i></div>
                 <h3>Số đơn hàng - @ViewBag.daYOrderCount</h3>
             </div>
@@ -30,7 +31,7 @@
                 <h5>Tháng @ViewBag.monTH</h5>
             </div>
             <div class="ibox-content">
-                <h2 class="no-margins">Doanh thu - @ViewBag.monTHTotalRevenue</h2>
+                <h2 class="no-margins">Doanh thu - @ViewBag.monTHTotalRevenue đ</h2>
                 <div class="stat-percent font-bold text-info"><i class="fa fa-level-up"></i></div>
                 <h3>Số đơn hàng - @ViewBag.monTHOrderCount</h3>
             </div>
@@ -43,18 +44,18 @@
                 <h5>Năm @ViewBag.yeaR</h5>
             </div>
             <div class="ibox-content">
-                <h2 class="no-margins">Doanh thu - @ViewBag.yeaRTotalRevenue</h2>
+                <h2 class="no-margins">Doanh thu - @ViewBag.yeaRTotalRevenue đ</h2>
                 <div class="stat-percent font-bold text-info"><i class="fa fa-level-up"></i></div>
                 <h3>Số đơn hàng - @ViewBag.yeaROrderCount</h3>
             </div>
         </div>
     </div>
 </div>
-        
+
 
 
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>Thay đổi trạng thái đơn hàng</h5>
@@ -71,7 +72,7 @@
                                     <option value="1" @(item.status.Equals("1") ? "selected" : "")>Đang xử lý</option>
                                     <option value="2" @(item.status.Equals("2") ? "selected" : "")>Đã giao</option>
                                 </select>
-                            
+
                             </div>
 
                         }
@@ -80,6 +81,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 

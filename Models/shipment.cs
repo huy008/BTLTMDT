@@ -1,4 +1,4 @@
-namespace PTUDTMDT.Models
+﻿namespace PTUDTMDT.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,21 +17,21 @@ namespace PTUDTMDT.Models
 
         [Key]
         public int shipment_id { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập trường này")]
         public DateTime? shipment_date { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập trường này")]
         [StringLength(100)]
         public string address { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập trường này")]
         [StringLength(100)]
         public string city { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập trường này")]
         [StringLength(100)]
         public string status { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập trường này")]
         [StringLength(100)]
         public string country { get; set; }
-
+        [Required(ErrorMessage = "Bạn phải nhập trường này")]
         [StringLength(100)]
         public string zip_code { get; set; }
 
